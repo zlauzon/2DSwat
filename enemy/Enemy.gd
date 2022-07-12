@@ -13,7 +13,7 @@ func _ready():
 	_health = 100
 	_weapon = WEAPON_SCENE.instance()
 	_weapon.setWeaponSmg()
-	#_weapon.set2DPositions($Muzzle, $GunPort)
+	##_weapon.set2DPositions($Muzzle, $GunPort)
 	add_child(_weapon)
 	_rootNode = get_tree().get_root().get_node("Main")
 	
