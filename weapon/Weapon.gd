@@ -121,7 +121,8 @@ func _on_ReloadTimer_timeout():
 	_state = PARAM_STATE_LIVE
 	
 func playGunshot():
-	AudioStreamManager.play("res://assets/weapon/Gunshot_1.wav")
+	#AudioStreamManager.play("res://assets/weapon/Gunshot_1.wav")
+	pass
 
 func setWeaponSmg():
 	setKnockBack(1)
