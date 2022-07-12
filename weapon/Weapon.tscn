@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://weapon/Weapon.gd" type="Script" id=1]
+[ext_resource path="res://particle/BulletCasing.tscn" type="PackedScene" id=2]
+[ext_resource path="res://projectile/Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://particle/Reloading.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/weapon/weapon.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "BattleRifle",
+"speed": 5.0
+} ]
+
+[node name="Weapon" type="KinematicBody2D"]
+script = ExtResource( 1 )
+BULLET_SCENE = ExtResource( 3 )
+BULLETCASING_SCENE = ExtResource( 2 )
+RELOADING_SCENE = ExtResource( 4 )
+
+[node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="WeaponSprite" type="AnimatedSprite" parent="."]
+z_index = 3
+frames = SubResource( 1 )
+animation = "BattleRifle"
+
+[node name="GunPort" type="Position2D" parent="."]
+position = Vector2( -16, 5 )
+
+[node name="Muzzle" type="Position2D" parent="."]
+position = Vector2( 59, 0 )
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]

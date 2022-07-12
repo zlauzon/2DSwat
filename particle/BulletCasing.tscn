@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/bullet_casing.png" type="Texture" id=1]
+[ext_resource path="res://particle/BulletCasing.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=8]
+min_value = -360.0
+max_value = 360.0
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.108696, 360 ), 3914.18, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="Curve" id=6]
+min_value = 1.0
+max_value = 2.0
+_data = [ Vector2( 0, 2 ), 0.0, 0.0, 0, 0, Vector2( 0.0815217, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.0923913, 1.27841 ), 0.0, 0.0, 0, 0, Vector2( 0.141304, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 35.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 150.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = -100.0
+radial_accel = 70.0
+radial_accel_random = 0.8
+damping = 100.0
+damping_random = 0.4
+angle_random = 1.0
+angle_curve = SubResource( 9 )
+scale_curve = SubResource( 7 )
+color_ramp = SubResource( 5 )
+
+[node name="BulletCasing" type="Particles2D"]
+position = Vector2( 28, 4 )
+emitting = false
+amount = 1
+lifetime = 10.0
+one_shot = true
+local_coords = false
+process_material = SubResource( 3 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+autostart = true

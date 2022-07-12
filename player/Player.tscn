@@ -1,0 +1,79 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://player/Player.gd" type="Script" id=2]
+[ext_resource path="res://fct/FCTManager.tscn" type="PackedScene" id=3]
+[ext_resource path="res://particle/Reloading.tscn" type="PackedScene" id=4]
+[ext_resource path="res://player/ShakeCamera2D.gd" type="Script" id=5]
+[ext_resource path="res://weapon/Weapon.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/player/torso.png" type="Texture" id=7]
+[ext_resource path="res://assets/player/head.png" type="Texture" id=8]
+[ext_resource path="res://assets/player/arms.png" type="Texture" id=9]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 37.4767
+height = 18.3847
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "torso",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Player" type="Area2D" groups=["good"]]
+z_index = 1
+script = ExtResource( 2 )
+WEAPON_SCENE = ExtResource( 6 )
+RELOADING_SCENE = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.999999, 2 )
+rotation = 0.785397
+z_index = 10
+shape = SubResource( 2 )
+
+[node name="TorsoSprite" type="AnimatedSprite" parent="."]
+z_index = 2
+frames = SubResource( 1 )
+animation = "torso"
+
+[node name="ArmsSprite" type="AnimatedSprite" parent="TorsoSprite"]
+visible = false
+z_index = 1
+frames = SubResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_group_": true
+}
+target = NodePath("..")
+
+[node name="FCTManager" parent="." instance=ExtResource( 3 )]
+
+[node name="HeadSprite" type="AnimatedSprite" parent="."]
+z_index = 4
+frames = SubResource( 3 )
+
+[node name="WeaponPos" type="Position2D" parent="."]
+position = Vector2( 54, 0 )
+
+[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
